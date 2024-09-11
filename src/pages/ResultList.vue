@@ -5,17 +5,42 @@
             <table >
                 <thead>
                     <tr>
-                        <th v-bind:align="myCenter">제어번호</th>
-                        <th v-bind:align="myCenter">자료명</th>
-                        <th v-bind:align="myCenter">저자명</th>
-                        <th v-bind:align="myCenter">발행자</th>
+                        <th v-bind:align="myCenter">지역코드</th>
+                        <th v-bind:align="myCenter">지역명</th>
+                        <th v-bind:align="myCenter">요일코드</th>
+                        <th v-bind:align="myCenter">요일명</th>
+                        <th v-bind:align="myCenter">관리자구분코드</th>
+                        <th v-bind:align="myCenter">관리자코드명</th>
+                        <th v-bind:align="myCenter">관리자번호</th>
+                        <th v-bind:align="myCenter">기본일자</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, i) in this.api_list" :key="i">                    
                        
                         <td>
+                            {{ item.areaCode }}
+                        </td>
+                        <td>
                             {{ item.areaNm }}
+                        </td>
+                        <td>
+                            {{ item.daywkDivCd }}
+                        </td>
+                        <td>
+                            {{ item.daywkDivNm }}
+                        </td>
+                        <td>
+                            {{ item.touDivCd }}
+                        </td>
+                        <td>
+                            {{ item.touDivNm }}
+                        </td>
+                        <td>
+                            {{ item.touNum }}
+                        </td>
+                        <td>
+                            {{ item.baseYmd }}
                         </td>
                     </tr>
                 </tbody>

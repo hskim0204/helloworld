@@ -1,11 +1,12 @@
 // src/api.js
 import axios from 'axios';
-var api_res = [];
+var api_res;
 
 export default {
     async getNanetAPI(param) {
         console.log("process.env.VUE_APP_NANET_API_URL :",process.env.VUE_APP_NANET_API_URL);
         console.log("param :",param);
+        api_res = [];
         await axios.get(process.env.VUE_APP_NANET_API_URL, {
             params: {
                 MobileOS: "ETC", 
@@ -20,23 +21,20 @@ export default {
             let parseXML = new DOMParser();
             let xmlDoc = parseXML.parseFromString(response.data, "text/xml");
 
-            console.log("xmlDoc", xmlDoc);             
+            console.log(xmlDoc.querySelectorAll("item"));            
 
-            api_res = xmlDoc.querySelectorAll("item"); 
-            console.log(api_res.item(1))
+            const items = Array.from(xmlDoc.querySelectorAll("item"));
+            let item;
+            items.forEach((child) => {
+                item = {};
+                for(let i=0; i< child.children.length; i++){
+                    item[child.children[i].tagName] = child.children[i].innerHTML;
+                }
+                console.log(item);
+                api_res.push(item);
+            })
 
-            const data = {};
-            const items = xmlDoc.documentElement.childNodes[1].childNodes[0];
-            console.log(items);
-            for (let i = 0; i < items.length; i++) {
-                console.log(items[i]);
-               data[i] = items[i];
-            }
-            console.log(data);
-            const jsonResult = JSON.stringify(items);
-            console.log(jsonResult);
         })
-        console.log("api_res:", api_res);        
         return api_res;
     },
-};
+}
