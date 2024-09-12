@@ -1,9 +1,9 @@
 <template>
     <div>
         <br>
-        <h1><p v-bind:align="myAlign">국회 도서관 도서 검색</p></h1><br>
+        <h1><p v-bind:align="myAlign">부서 검색</p></h1><br>
         <p v-bind:align="myAlign" ><input v-model="srhInp" v-on:keyup.enter="goToResults" type="text" >
-        &nbsp;<v-btn v-on:click="goToResults">검색</v-btn></p>                 
+        &nbsp;<v-btn v-on:click="goToResults"  color="primary" >검색</v-btn></p>                 
     </div>   
 </template>
 <script>
@@ -27,7 +27,7 @@ export default {
                 return alert("검색어를 입력해주세요.")
             }*/
             router.push({
-                name: 'resultList', // routes path name in index.js
+                name: 'resultList1', // routes path name in index.js
                 params: { srhs: this.srhInp } // resultList 에 넘길 파라미터. props 로 넘어감             
             }).catch(() => {})
         }

@@ -9,16 +9,16 @@ export default {
         api_res = [];
         await axios.get(process.env.VUE_APP_NANET_API_URL, {
             params: {
-                MobileOS: "ETC", 
+                /*MobileOS: "ETC", 
                 MobileApp: "ETC",
                 serviceKey: "tDQmZjN+kD/Ju71kQIL6jBsqTT5xlE4pmS9Q3AtBujLF5VoSBK9XZkRxWQsbVkz6caEPXTZ7BZ3D8oFxO57ZaA==",     
                 startYmd: 20240101,
-                endYmd: 20240701,
+                endYmd: 20240701,*/
             },
         })
         .then(response => {      
             console.log("api_response:", response.data);  
-            let parseXML = new DOMParser();
+            /*let parseXML = new DOMParser();
             let xmlDoc = parseXML.parseFromString(response.data, "text/xml");
 
             console.log(xmlDoc.querySelectorAll("item"));            
@@ -32,7 +32,8 @@ export default {
                 }
                 console.log(item);
                 api_res.push(item);
-            })
+            })*/
+           api_res = response.data;
 
         })
         return api_res;
