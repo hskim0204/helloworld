@@ -1,62 +1,49 @@
 <template>
-  <br />
-  <h2><p v-bind:align="myCenter">검색 결과</p></h2>
-  <v-text-field
-    v-model="search"
-    append-icon="mdi-magnify"
-    label="Search"
-    single-line
-    hide-details
-  ></v-text-field>
-  <v-data-table
-    :items="api_list"
-    :items-per-page="5"
-    :search="search"
-    class="elevation-1"
-  >
-  </v-data-table>
-  <!--<p v-bind:align="myCenter">
-    <a class="underline" v-on:click="goNext(-1)"><b>이전</b></a>
-    &nbsp;&nbsp;
-    <a class="underline" v-on:click="goMain"><b>Main</b></a>
-    &nbsp;&nbsp;
-    <a class="underline" v-on:click="goNext(1)"><b>다음</b></a>
-  </p>-->
+  <v-card title="검색결과내 검색" flat>
+    <template v-slot:text>
+      <v-text-field
+        v-model="search"
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        variant="outlined"
+        hide-details
+        single-line
+      ></v-text-field>
+    </template>
+    <v-data-table
+      :headers="headers"
+      :items="deptList"
+      :items-per-page="5"
+      :search="search"
+    >
+    </v-data-table>
+  </v-card>
   <rDtl v-show="modalCheck" :items="items" @childClose="modalClose"></rDtl>
 </template>
 <script>
-import router from "../assets/index";
 import rDtl from "./ResultDtl";
 import api from "../assets/api";
 
-var param = {
-  search: "",
-  pageno: "",
-  displaylines: "",
-};
+var param = {};
 
 export default {
   data: () => ({
     search: "",
     headers: [
       {
-        text: "부서코드",
+        title: "부서코드",
         align: "center",
         sortable: false,
         filterable: false,
-        value: "DEPTNO",
+        key: "DEPTNO",
         show: true,
       },
-      { text: "부서명", value: "DNAME" },
-      { text: "부서위치", value: "LOC" },
+      { title: "부서명", key: "DNAME" },
+      { title: "부서위치", key: "LOC" },
     ],
-    myCenter: "center",
-    api_list: [],
-    myVisible: false,
+    deptList: [],
     items: [],
     modalCheck: false,
-    pageNo: 1,
-    displayNum: 10,
   }),
   components: {
     rDtl,
@@ -74,14 +61,9 @@ export default {
   },
   methods: {
     async CallThisApi() {
-      //console.log("start CallThisApi :");
       param.dName = history.state.srhs;
-      //param.pageno = this.pageNo;
-      //param.displaylines = this.displayNum;
-      //console.log("object param :", param);
       try {
-        this.api_list = await api.getNanetAPI(param);
-        console.log("this.api_list :", this.api_list);
+        this.deptList = await api.getNanetAPI(param);
         this.search = "";
       } catch (error) {
         console.error("API 호출 에러:", error);
@@ -90,27 +72,6 @@ export default {
     goDtl(rData) {
       this.items = rData;
       this.modalCheck = true;
-    },
-    goMain: function () {
-      //console.log("srhInp :", this.srhInp);
-      router
-        .push({
-          name: "searchMain",
-        })
-        .catch(() => {});
-    },
-    goNext(no) {
-      if (no == -1) {
-        if (this.pageNo < 2) {
-          alert("첫번째 페이지입니다.");
-        } else {
-          this.pageNo -= 1;
-          this.CallThisApi();
-        }
-      } else {
-        this.pageNo += 1;
-        this.CallThisApi();
-      }
     },
     modalClose() {
       this.modalCheck = false;
