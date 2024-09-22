@@ -39,10 +39,10 @@ export default {
     writeClick() {
       if (this.$route.params.seq) {
         axios
-          .put("http://localhost:5043/write", this.$data)
+          .put("http://localhost:5043/update", this.$data)
           .then((response) => {
             console.log(response);
-            this.$router.push("/");
+            this.$router.push("/resultList1");
           })
           .catch((error) => {
             console.log(error);
