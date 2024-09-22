@@ -3,6 +3,7 @@ import SearchMain from "../pages/SearchMain";
 import ResultList from "../pages/ResultList";
 import ResultList1 from "../pages/ResultList1";
 import ResultDtl from "../pages/ResultDtl";
+import ListWrite from "../pages/ListWrite";
 
 const routes = [
   { path: "/", name: "searchMain", component: SearchMain },
@@ -19,6 +20,7 @@ const routes = [
     props: true,
   },
   { path: "/resultDtl", name: "resultDtl", component: ResultDtl, props: true },
+  { path: "/listWrite", name: "listWrite", component: ListWrite, props: true },
 ]; // path 별 페이지 component 추가
 
 const router = createRouter({

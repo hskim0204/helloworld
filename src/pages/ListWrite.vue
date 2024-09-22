@@ -1,0 +1,71 @@
+<template>
+  <v-form>
+    <v-container>
+      <v-row> 부서명 </v-row>
+      <v-row>
+        <v-text-field
+          :counter="50"
+          label="부서명"
+          name="title"
+          required
+          v-model="dName"
+          maxlength="50"
+        ></v-text-field>
+      </v-row>
+      <v-row> 부서위치 </v-row>
+      <v-row>
+        <v-textarea
+          filled
+          name="context"
+          hint="부서 위치를 입력해주세요."
+          v-model="loc"
+          :counter="1000"
+          maxlength="1000"
+        ></v-textarea>
+      </v-row>
+      <v-row>
+        <v-btn block outlined color="blue" @click="writeClick"> 등록 </v-btn>
+      </v-row>
+    </v-container>
+  </v-form>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "BoardWriter",
+  methods: {
+    writeClick() {
+      if (this.$route.params.seq) {
+        axios
+          .put("http://localhost:5043/write", this.$data)
+          .then((response) => {
+            console.log(response);
+            this.$router.push("/");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        console.log(this.$data);
+        axios
+          .post("http://localhost:5043/write", this.$data)
+          .then((response) => {
+            console.log(response);
+            this.$router.push("/resultList1");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+  },
+  data() {
+    return {
+      dName: "",
+      loc: "",
+    };
+  },
+};
+</script>

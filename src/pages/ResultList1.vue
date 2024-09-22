@@ -15,10 +15,19 @@
       :items="deptList"
       :items-per-page="5"
       :search="search"
-    >
+      ><template v-slot:item="{ item }">
+        <tr class="green-bg" @click="handleClick(item)">
+          <td>{{ item.DEPTNO }}</td>
+          <td>{{ item.DNAME }}</td>
+          <td>{{ item.LOC }}</td>
+        </tr>
+      </template>
     </v-data-table>
   </v-card>
-  <rDtl v-show="modalCheck" :items="items" @childClose="modalClose"></rDtl>
+  <v-row>
+    <v-btn outlined color="blue" @click="writeClick"> 작성 </v-btn>
+  </v-row>
+  <rDtl v-if="modalCheck" :dept="dept" @childClose="modalClose"></rDtl>
 </template>
 <script>
 import rDtl from "./ResultDtl";
@@ -42,7 +51,7 @@ export default {
       { title: "부서위치", key: "LOC" },
     ],
     deptList: [],
-    items: [],
+    dept: undefined,
     modalCheck: false,
   }),
   components: {
@@ -74,8 +83,27 @@ export default {
       this.modalCheck = true;
     },
     modalClose() {
+      this.dept = undefined;
       this.modalCheck = false;
+    },
+    handleClick(item) {
+      console.log(item);
+      this.dept = item;
+      this.modalCheck = true;
+    },
+    writeClick() {
+      this.$router.push("/ListWrite");
     },
   },
 };
 </script>
+
+<style lang="css">
+.green-bg {
+  display: table-row;
+}
+
+.green-bg:hover {
+  background: green !important;
+}
+</style>
