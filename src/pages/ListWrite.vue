@@ -35,9 +35,17 @@ import axios from "axios";
 
 export default {
   name: "BoardWriter",
+
+  created() {
+    console.log("listwir c" + this.$route.params);
+    if (this.$route.params.deptNo) {
+      this.dName = this.$route.params.dName;
+      this.loc = this.$route.params.loc;
+    }
+  },
   methods: {
     writeClick() {
-      if (this.$route.params.seq) {
+      if (this.$route.params.deptNo) {
         axios
           .put("http://localhost:5043/update", this.$data)
           .then((response) => {

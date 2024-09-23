@@ -83,7 +83,7 @@ export default {
       this.modalCheck = true;
     },
     modalClose() {
-      this.dept = undefined;
+      //this.dept = undefined;
       this.modalCheck = false;
     },
     handleClick(item) {
@@ -92,7 +92,19 @@ export default {
       this.modalCheck = true;
     },
     writeClick() {
-      this.$router.push("/ListWrite");
+      console.log("???" + this.dept);
+      if (!this.dept) {
+        this.$router.push("/ListWrite");
+      } else {
+        this.$router.push({
+          name: "listWrite",
+          params: {
+            deptNo: this.dept.DEPTNO,
+            dName: this.dept.DNAME,
+            loc: this.dept.LOC,
+          },
+        });
+      }
     },
   },
 };
