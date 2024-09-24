@@ -26,12 +26,14 @@
   </v-card>
   <v-row>
     <v-btn outlined color="blue" @click="writeClick"> 작성 </v-btn>
+    <v-btn outlined color="red" @click="del"> 삭제 </v-btn>
   </v-row>
   <rDtl v-if="modalCheck" :dept="dept" @childClose="modalClose"></rDtl>
 </template>
 <script>
 import rDtl from "./ResultDtl";
 import api from "../assets/api";
+import axios from "axios";
 
 var param = {};
 
@@ -102,6 +104,21 @@ export default {
             loc: this.dept.loc,
           },
         });
+      }
+    },
+    del() {
+      if (this.dept) {
+        axios
+          .delete("http://localhost:5043/depts/" + this.dept.deptNo)
+          .then((response) => {
+            console.log(response);
+            this.dept = undefined;
+            alert("삭제되었습니다.");
+            this.CallThisApi();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
   },
