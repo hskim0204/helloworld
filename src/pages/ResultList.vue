@@ -88,19 +88,15 @@ export default {
     },
   },
   created() {
-    //console.log("parameter :", this.srhsTest)
     this.CallThisApi();
   },
   methods: {
     async CallThisApi() {
-      //console.log("start CallThisApi :");
       param.search = "자료명," + this.srhsTest;
       param.pageno = this.pageNo;
       param.displaylines = this.displayNum;
-      //console.log("object param :", param);
       try {
         this.api_list = await api.getNanetAPI(param);
-        console.log("this.api_list :", this.api_list);
       } catch (error) {
         console.error("API 호출 에러:", error);
       }
@@ -110,7 +106,6 @@ export default {
       this.modalCheck = true;
     },
     goMain: function () {
-      //console.log("srhInp :", this.srhInp);
       router
         .push({
           name: "searchMain",

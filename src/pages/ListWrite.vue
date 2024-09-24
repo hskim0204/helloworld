@@ -37,7 +37,6 @@ export default {
   name: "BoardWriter",
 
   created() {
-    console.log("listwir c" + this.$route.params);
     if (this.$route.params.deptNo) {
       this.dName = this.$route.params.dName;
       this.loc = this.$route.params.loc;
@@ -46,8 +45,10 @@ export default {
   methods: {
     writeClick() {
       if (this.$route.params.deptNo) {
+        //this.$data.deptNo = this.$route.params.deptNo; 이것도 맞음
+        this.$data["deptNo"] = this.$route.params.deptNo;
         axios
-          .put("http://localhost:5043/update", this.$data)
+          .put("http://localhost:5043/depts", this.$data)
           .then((response) => {
             console.log(response);
             this.$router.push("/resultList1");
@@ -56,9 +57,8 @@ export default {
             console.log(error);
           });
       } else {
-        console.log(this.$data);
         axios
-          .post("http://localhost:5043/write", this.$data)
+          .post("http://localhost:5043/depts", this.$data)
           .then((response) => {
             console.log(response);
             this.$router.push("/resultList1");

@@ -31,26 +31,14 @@ export default {
       loc: "",
       dtlCenter: "center",
       modalCheck: false,
-      headers: [
-        {
-          title: "부서코드",
-          align: "center",
-          sortable: false,
-          filterable: false,
-          key: "DEPTNO",
-          show: true,
-        },
-        { title: "부서명", key: "DNAME" },
-        { title: "부서위치", key: "LOC" },
-      ],
     };
   },
   props: {
     dept: undefined,
   },
   created() {
-    this.dname = this.dept.DNAME;
-    this.loc = this.dept.LOC;
+    this.dname = this.dept.dName;
+    this.loc = this.dept.loc;
   },
   methods: {
     goBack: function () {

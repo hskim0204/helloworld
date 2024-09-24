@@ -17,9 +17,9 @@
       :search="search"
       ><template v-slot:item="{ item }">
         <tr class="green-bg" @click="handleClick(item)">
-          <td>{{ item.DEPTNO }}</td>
-          <td>{{ item.DNAME }}</td>
-          <td>{{ item.LOC }}</td>
+          <td>{{ item.deptNo }}</td>
+          <td>{{ item.dName }}</td>
+          <td>{{ item.loc }}</td>
         </tr>
       </template>
     </v-data-table>
@@ -44,11 +44,11 @@ export default {
         align: "center",
         sortable: false,
         filterable: false,
-        key: "DEPTNO",
+        key: "deptNo",
         show: true,
       },
-      { title: "부서명", key: "DNAME" },
-      { title: "부서위치", key: "LOC" },
+      { title: "부서명", key: "dName" },
+      { title: "부서위치", key: "loc" },
     ],
     deptList: [],
     dept: undefined,
@@ -65,7 +65,6 @@ export default {
     },
   },
   created() {
-    console.log("parameter :" + history.state.srhs);
     this.CallThisApi();
   },
   methods: {
@@ -73,6 +72,7 @@ export default {
       param.dName = history.state.srhs;
       try {
         this.deptList = await api.getNanetAPI(param);
+        console.log(this.deptList);
         this.search = "";
       } catch (error) {
         console.error("API 호출 에러:", error);
@@ -87,21 +87,19 @@ export default {
       this.modalCheck = false;
     },
     handleClick(item) {
-      console.log(item);
       this.dept = item;
       this.modalCheck = true;
     },
     writeClick() {
-      console.log("???" + this.dept);
       if (!this.dept) {
         this.$router.push("/ListWrite");
       } else {
         this.$router.push({
-          name: "listWrite",
+          name: "listWrite1",
           params: {
-            deptNo: this.dept.DEPTNO,
-            dName: this.dept.DNAME,
-            loc: this.dept.LOC,
+            deptNo: this.dept.deptNo,
+            dName: this.dept.dName,
+            loc: this.dept.loc,
           },
         });
       }

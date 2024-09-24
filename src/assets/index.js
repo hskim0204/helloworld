@@ -20,7 +20,16 @@ const routes = [
     props: true,
   },
   { path: "/resultDtl", name: "resultDtl", component: ResultDtl, props: true },
-  { path: "/listWrite", name: "listWrite", component: ListWrite, props: true },
+  {
+    path: "/listWrite/:deptNo:dName:loc",
+    name: "listWrite1",
+    component: ListWrite,
+  },
+  {
+    path: "/listWrite",
+    name: "listWrite",
+    component: ListWrite,
+  },
 ]; // path 별 페이지 component 추가
 
 const router = createRouter({

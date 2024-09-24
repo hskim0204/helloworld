@@ -4,11 +4,6 @@ var api_res;
 
 export default {
   async getNanetAPI(param) {
-    console.log(
-      "process.env.VUE_APP_NANET_API_URL :",
-      process.env.VUE_APP_NANET_API_URL
-    );
-    console.log("param :", param);
     api_res = [];
     await axios
       .get(process.env.VUE_APP_NANET_API_URL, {
@@ -22,11 +17,8 @@ export default {
         },
       })
       .then((response) => {
-        console.log("api_response:", response.data);
         /*let parseXML = new DOMParser();
             let xmlDoc = parseXML.parseFromString(response.data, "text/xml");
-
-            console.log(xmlDoc.querySelectorAll("item"));            
 
             const items = Array.from(xmlDoc.querySelectorAll("item"));
             let item;
@@ -35,7 +27,6 @@ export default {
                 for(let i=0; i< child.children.length; i++){
                     item[child.children[i].tagName] = child.children[i].innerHTML;
                 }
-                console.log(item);
                 api_res.push(item);
             })*/
         api_res = response.data;
