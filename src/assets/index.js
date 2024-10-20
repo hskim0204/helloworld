@@ -4,6 +4,8 @@ import ResultList from "../pages/ResultList";
 import ResultList1 from "../pages/ResultList1";
 import ResultDtl from "../pages/ResultDtl";
 import ListWrite from "../pages/ListWrite";
+import NaverMap from "@/components/NaverMap.vue";
+import HelloWorld from "@/components/HelloWorld.vue";
 
 const routes = [
   { path: "/", name: "searchMain", component: SearchMain },
@@ -29,6 +31,16 @@ const routes = [
     path: "/listWrite",
     name: "listWrite",
     component: ListWrite,
+  },
+  {
+    path: "/naverMap",
+    name: "naverMap",
+    component: NaverMap,
+  },
+  {
+    path: "/helloWorld",
+    name: "helloWorld",
+    component: HelloWorld,
   },
 ]; // path 별 페이지 component 추가
 
